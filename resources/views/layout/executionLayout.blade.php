@@ -47,10 +47,10 @@
                     </div>
                 </div>
                 <textarea name="input" class="border border-gray-800 rounded w-full p-2" rows="7">
-                    @isset($input)
-                    {{ $input }}
-                @endisset
-                </textarea>
+@isset($input)
+{{ $input }}
+@endisset
+</textarea>
             </form>
         </div>
         <div>
