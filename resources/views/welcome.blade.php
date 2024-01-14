@@ -1,4 +1,4 @@
-@extends('layout.app', ['hide_header' =>true, 'hide_footer' =>true])
+@extends('layout.app', ['hide_header' => true, 'hide_footer' => true])
 @section('content')
     <div class="min-h-screen flex items-center justify-center">
         <div class="bg-black rounded-lg shadow-lg p-10">
@@ -8,15 +8,14 @@
             <div class="mt-10">
                 @auth
                     <a href= "{{ route('profile') }}" class="bg-gray-200 rounded-md hover:bg-green-500 px-5 py-3">Profile</a>
-                    <a href="#" class="bg-gray-200 rounded-md hover:bg-green-500 px-5 py-3">Start
-                        Now</a>
+                    <a href="{{ route('php') }}" class="bg-gray-200 rounded-md hover:bg-green-500 px-5 py-3">Start
+                        Coding</a>
                 @else
                     <a href="{{ route('register') }}"
                         class="bg-gray-200 rounded-md hover:bg-green-500 px-5 py-3 mr-5">Register</a>
-                    <a href="{{ route('login') }}"
-                        class="bg-gray-200 rounded-md hover:bg-green-500 px-5 py-3 mr-5">Login</a>
-                    <a href="#" class="bg-gray-200 rounded-md hover:bg-green-500 px-5 py-3">Start
-                        Now</a>
+                    <a href="{{ route('login') }}" class="bg-gray-200 rounded-md hover:bg-green-500 px-5 py-3 mr-5">Login</a>
+                    <a href="{{ route('php') }}" class="bg-gray-200 rounded-md hover:bg-green-500 px-5 py-3">Start
+                        Coding</a>
                 @endauth
             </div>
         </div>
