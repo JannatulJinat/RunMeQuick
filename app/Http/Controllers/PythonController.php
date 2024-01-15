@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
@@ -23,7 +24,18 @@ class PythonController extends Controller
         $result = new Process([env('PYTHON_PATH'), $full_path]);
         $result->run();
         $output = $result->isSuccessful() ? $result->getOutput() : $result->getErrorOutput();
-        Storage::delete($file_path);
+        if(auth()->check())
+        {
+            User::find(auth()->id())->submissions()->create([
+                'user_id' => auth()->id(),
+                'input' => $file_path,
+                'output' => $result->getOutput(),
+                'language' => "python",
+            ]);
+        }
+        else{
+            Storage::delete($file_path);
+        }
         return view('execution.pythonCode',[
             'formAction' => route('execute-python'),
             'input' => $request->input,

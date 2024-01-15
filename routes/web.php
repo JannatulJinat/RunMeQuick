@@ -5,6 +5,7 @@ use App\Http\Controllers\GoController;
 use App\Http\Controllers\PhpController;
 use App\Http\Controllers\PythonController;
 use App\Http\Controllers\JavascriptController;
+use App\Http\Controllers\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,9 +21,8 @@ use App\Http\Controllers\JavascriptController;
 Route::get('/', function () {
     return view('welcome');
 })->name('home');
-Route::get('/profile', function () {
-    return view('profile');
-})->name('profile')->middleware('auth');
+
+Route::get('/profile', [ProfileController::class, 'create'])->name('profile')->middleware('auth');
 
 Route::get('/php/online-compiler/', [PhpController::class, 'create'])->name('php');
 Route::post('/php/online-compiler/', [PhpController::class, 'execute'])->name('execute-php');
@@ -36,4 +36,4 @@ Route::post('/js/online-compiler/', [JavascriptController::class, 'execute'])->n
 Route::get('/go/online-compiler/', [GoController::class, 'create'])->name('go');
 Route::post('/go/online-compiler/', [GoController::class, 'execute'])->name('execute-go');
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

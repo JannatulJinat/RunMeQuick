@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Symfony\Component\Process\Process;
@@ -22,7 +23,18 @@ class JavascriptController extends Controller
         $result = new Process(['node', $full_path]);
         $result->run();
         $output = $result->isSuccessful() ? $result->getOutput() : $result->getErrorOutput();
-        Storage::delete($file_path);
+        if(auth()->check())
+        {
+            User::find(auth()->id())->submissions()->create([
+                'user_id' => auth()->id(),
+                'input' => $file_path,
+                'output' => $result->getOutput(),
+                'language' => "javascript",
+            ]);
+        }
+        else{
+            Storage::delete($file_path);
+        }
         return view('execution.jsCode',[
             'formAction' => route('execute-js'),
             'input' => $request->input,
